@@ -1,20 +1,20 @@
-resource "aws_internet_gateway" "amc-vpc-igw" {
-  vpc_id = aws_vpc.amc-vpc.id
+resource "aws_internet_gateway" "rds-vpc-igw" {
+  vpc_id = aws_vpc.rds-vpc.id
   tags   = merge(var.tags, {})
 }
 
 resource "aws_subnet" "public_b" {
-  vpc_id            = aws_vpc.amc-vpc.id
+  vpc_id            = aws_vpc.rds-vpc.id
   tags              = merge(var.tags, {})
   cidr_block        = var.subnets.b
-  availability_zone = "us-east-2b"
+  availability_zone = "ap-south-1b"
 }
 
 resource "aws_subnet" "public_a" {
-  vpc_id            = aws_vpc.amc-vpc.id
+  vpc_id            = aws_vpc.rds-vpc.id
   tags              = merge(var.tags, {})
   cidr_block        = var.subnets.a
-  availability_zone = "us-east-2a"
+  availability_zone = "ap-south-1a"
 }
 
 resource "aws_eip" "eip_b" {
@@ -40,7 +40,7 @@ resource "aws_nat_gateway" "nat-gw-2b-public" {
 }
 
 resource "aws_route_table" "rt_public_a" {
-  vpc_id = aws_vpc.amc-vpc.id
+  vpc_id = aws_vpc.rds-vpc.id
 }
 
 resource "aws_route_table_association" "rt_assoc_public_a" {
@@ -51,11 +51,11 @@ resource "aws_route_table_association" "rt_assoc_public_a" {
 resource "aws_route" "route_a" {
   route_table_id         = aws_route_table.rt_public_a.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.amc-vpc-igw.id
+  gateway_id             = aws_internet_gateway.rds-vpc-igw.id
 }
 
 resource "aws_route_table" "rt_public_b" {
-  vpc_id = aws_vpc.amc-vpc.id
+  vpc_id = aws_vpc.rds-vpc.id
   tags   = merge(var.tags, {})
 }
 
@@ -67,7 +67,7 @@ resource "aws_route_table_association" "rt_assoc_public_b" {
 resource "aws_route" "route_b" {
   route_table_id         = aws_route_table.rt_public_b.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.amc-vpc-igw.id
+  gateway_id             = aws_internet_gateway.rds-vpc-igw.id
 }
 
 

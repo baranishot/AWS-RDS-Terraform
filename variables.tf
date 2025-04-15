@@ -1,18 +1,12 @@
 variable "private_subnets" {
   type = map(any)
-  default = {
-    a = "10.0.4.0/24"
-    b = "10.0.5.0/24"
-  }
+  default = {}
 }
 
 variable "subnets" {
   description = "Default values for public subnets."
   type        = map(any)
-  default = {
-    a = "10.0.1.0/24"
-    b = "10.0.2.0/24"
-  }
+  default = {}
 }
 
 variable "tags" {
@@ -23,7 +17,7 @@ variable "tags" {
 variable "vpc_cidr" {
   description = "The network addressing for the default VPC."
   type        = string
-  default     = "10.0.0.0/16"
+  default     = ""
 }
 
 variable "amount_limitation" {

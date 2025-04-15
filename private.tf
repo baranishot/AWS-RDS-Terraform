@@ -1,5 +1,5 @@
 resource "aws_route_table" "rt_private_a" {
-  vpc_id = aws_vpc.amc-vpc.id
+  vpc_id = aws_vpc.rds-vpc.id
   tags   = merge(var.tags, {})
 }
 
@@ -15,7 +15,7 @@ resource "aws_route" "route_pa" {
 }
 
 resource "aws_route_table" "rt_private_b" {
-  vpc_id = aws_vpc.amc-vpc.id
+  vpc_id = aws_vpc.rds-vpc.id
   tags   = merge(var.tags, {})
 }
 
@@ -31,17 +31,17 @@ resource "aws_route" "route_pb" {
 }
 
 resource "aws_subnet" "private_a" {
-  vpc_id                  = aws_vpc.amc-vpc.id
+  vpc_id                  = aws_vpc.rds-vpc.id
   tags                    = merge(var.tags, {})
   map_public_ip_on_launch = false
   cidr_block              = var.private_subnets.a
-  availability_zone       = "us-east-2a"
+  availability_zone       = "ap-south-1a"
 }
 
 resource "aws_subnet" "private_b" {
-  vpc_id                  = aws_vpc.amc-vpc.id
+  vpc_id                  = aws_vpc.rds-vpc.id
   tags                    = merge(var.tags, {})
   map_public_ip_on_launch = false
   cidr_block              = var.private_subnets.b
-  availability_zone       = "us-east-2b"
+  availability_zone       = "ap-south-1b"
 }
